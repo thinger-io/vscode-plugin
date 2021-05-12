@@ -1,0 +1,58 @@
+{
+    "name" : "vscode",
+    "version" : "version-v3.10.0",
+    "description" : "VS Code Plugin for Thinger.io",
+    "author" : "Alvaro Luis Bustamante",
+    "license" : "MIT",
+    "repository" : {
+        "type" : "git",
+        "url" : "https://github.com/thinger-io/vscode-plugin"
+    },
+    "metadata" : {
+        "name" : "VS Code",
+        "description" : "VS Code Plugin for Thinger.io",
+        "image" : "https://s3-eu-west-1.amazonaws.com/thinger.io.files/plugins/vscode/img/vscode-logo.png",
+        "icon" : "https://s3-eu-west-1.amazonaws.com/thinger.io.files/plugins/vscode/img/vscode-icon.svg"
+    },
+    "task" : {
+        "type" : "docker",
+        "image" : "linuxserver/code-server",
+        "user" : "0:0",
+        "volumes" : [
+            {
+                "source" : "data",
+                "target" : "/config",
+                "description": "Mount point for user data configuration and workspaces."
+            },
+            {
+            "source" : "../../../storages",
+            "target" : "/config/workspace",
+            "description": "Mount point for accessing user storages"
+            },
+            {
+                "source" : "/var/run/docker.sock",
+                "target" : "/var/run/docker.sock",
+                "description": "Mount point for docker management (only for admin)"
+            }
+        ],
+        "resources" : {
+            "memory" : 4294965097
+        },
+        "env" : {
+            "PROXY_DOMAIN":"{{hostname}}",
+            "DOCKER_MODS": "linuxserver/mods:code-server-docker|linuxserver/mods:code-server-python3",
+            "PIAUSER" : "{{username}}",
+            "PUID": "1000",
+            "PGID": "1000",
+            "SUDO_PASSWORD" : "thinger.io"
+        }
+    },
+    "interface" : {
+        "main" : {
+        "proxy_to" : {
+            "plugin" : "vscode",
+            "port" : 8443
+        }
+        }
+    }
+}
