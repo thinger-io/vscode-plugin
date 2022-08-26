@@ -1,6 +1,6 @@
 {
     "name" : "vscode",
-    "version" : "version-v3.10.0",
+    "version" : "4.6.0",
     "description" : "VS Code Plugin for Thinger.io",
     "author" : "Alvaro Luis Bustamante",
     "license" : "MIT",
@@ -16,7 +16,7 @@
     },
     "task" : {
         "type" : "docker",
-        "image" : "linuxserver/code-server",
+        "image" : "linuxserver/code-server:4.6.0",
         "user" : "0:0",
         "volumes" : [
             {
@@ -36,7 +36,7 @@
             }
         ],
         "resources" : {
-            "memory" : 4294965097
+            "memory" : 4026531840
         },
         "env" : {
             "PROXY_DOMAIN":"{{hostname}}",
